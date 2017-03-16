@@ -105,6 +105,8 @@ public class MyInfoActivity extends AppCompatActivity {
             super(fm);
         }
 
+
+
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
@@ -124,8 +126,6 @@ public class MyInfoActivity extends AppCompatActivity {
                     return null;
             }
         }
-
-        @Override
         public int getCount() {
             // Show 3 total pages.
             return 3;

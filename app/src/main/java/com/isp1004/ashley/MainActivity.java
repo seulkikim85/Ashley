@@ -22,5 +22,7 @@ public class MainActivity extends AppCompatActivity {
     public void onButton(View view) {
         Intent intent = new Intent(this, MyInfoActivity.class);
         startActivity(intent);
+
+        int i = 0;
     }
 }
