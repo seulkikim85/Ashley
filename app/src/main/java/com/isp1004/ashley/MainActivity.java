@@ -24,5 +24,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
         int i = 0;
+        i = i + 1;
     }
 }
