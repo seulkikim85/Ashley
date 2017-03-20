@@ -16,13 +16,23 @@
         android:text="Hello World!" />
 
     <Button
-        android:text="Button"
+        android:text="My Info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
         android:layout_marginStart="13dp"
         android:layout_marginTop="47dp"
-        android:id="@+id/button"
-        android:onClick="onButton" />
+        android:id="@+id/my_info"
+        android:onClick="onButton (MainActivity)" />
+
+    <Button
+        android:text="Shopping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_info"
+        android:layout_alignStart="@+id/my_info"
+        android:layout_marginTop="37dp"
+        android:id="@+id/shopping"
+        android:onClick="onGoShopping" />
 </RelativeLayout>

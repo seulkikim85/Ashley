@@ -26,4 +26,9 @@ public class MainActivity extends AppCompatActivity {
         int i = 0;
         i = i + 1;
     }
+
+    public void onGoShopping(View view) {
+        Intent intent = new Intent(this, com.isp1004.ashley.shopping.ProductListActivity.class);
+        startActivity(intent);
+    }
 }
