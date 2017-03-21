@@ -63,17 +63,16 @@ public class CustomAdaptor extends BaseAdapter {
 
         brandNname.setText(productListVO.getBrandName());
         productName.setText(productListVO.getProductName());
-//        price.setText(String.valueOf(productListVO.getPrice()));
-        price.setText(Integer.toString(productListVO.getPrice()));
+        price.setText(String.valueOf(productListVO.getPrice()));
 
         if (productListVO.getQty() != 0 ) {
-            qty.setText(Integer.toString(productListVO.getQty()));
+            qty.setText(String.valueOf(productListVO.getQty()));
         } else {
             qty.setText("Sold Out");
         }
 
         // IMG
-        PicassoClient.viewImage(context, productListVO.getImgUrl(), productImg);
+        PicassoClient.viewImage(context, context.getResources().getString(R.string.serverUri) + productListVO.getImgUrl(), productImg);
 
 
         return convertView;

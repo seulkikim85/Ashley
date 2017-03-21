@@ -20,12 +20,15 @@ import java.net.HttpURLConnection;
 
 public class ProductListActivity extends AppCompatActivity {
 
-    final static String urlAddress = "http://10.0.9.211/ashley_web/product_list.php";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_list);
+
+        final String urlAddress = this.getResources().getString(R.string.serverUri) + "product_list.php";
 
         final ListView listView = (ListView) findViewById(R.id.lv_product_list);
 

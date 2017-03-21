@@ -7,8 +7,16 @@ import android.app.Application;
  */
 
 public class GlobalApp extends Application {
+
+    //private String serverUri = "http://10.0.9.239";
     @Override
     public void onCreate() {
         super.onCreate();
+
     }
+/*
+    public String getServerUri() {
+        return serverUri;
+    }
+    */
 }
