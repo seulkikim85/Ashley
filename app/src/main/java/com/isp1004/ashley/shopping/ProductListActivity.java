@@ -20,10 +20,16 @@ import java.net.HttpURLConnection;
 
 public class ProductListActivity extends AppCompatActivity {
 
+    final static String urlAddress = "http://10.0.9.211/ashley_web/product_list.php";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_list);
+
+        final ListView listView = (ListView) findViewById(R.id.lv_product_list);
+
+        new DataLoader(ProductListActivity.this, urlAddress, listView).execute();
     }
 
 
@@ -37,6 +43,12 @@ class DataLoader extends AsyncTask<Void,Void,String> {
     ListView listView;
 
     ProgressDialog pd;
+
+    public DataLoader(Context context, String urlAddress, ListView listView) {
+        this.context = context;
+        this.urlAddress = urlAddress;
+        this.listView = listView;
+    }
 
     @Override
     protected void onPreExecute() {
@@ -63,6 +75,8 @@ class DataLoader extends AsyncTask<Void,Void,String> {
             Toast.makeText(context, "Unsuccessful, No Data Retrieved", Toast.LENGTH_SHORT).show();
         } else {
             // Parse
+            DataParser dataParser = new DataParser(context, jsonData, listView);
+            dataParser.execute();
         }
     }
 

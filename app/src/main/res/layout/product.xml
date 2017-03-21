@@ -7,7 +7,7 @@
     card_view:cardElevation="5dp"
     android:layout_height="150dp">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,8 +20,8 @@
             android:src="@drawable/fruit"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Brand Name"
             android:id="@+id/brand_name"
@@ -30,8 +30,8 @@
             android:layout_alignParentLeft="true"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Product Name"
             android:id="@+id/product_name"
@@ -40,11 +40,21 @@
             android:layout_alignParentLeft="true"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Qty"
+            android:id="@+id/qty"
+            android:padding="10dp"
+            android:textColor="@color/colorAccent"
+            android:layout_alignParentLeft="true"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Price"
-            android:id="@+id/price_name"
+            android:id="@+id/price"
             android:padding="10dp"
             android:textColor="@color/colorAccent"
             android:layout_alignParentLeft="true"/>
