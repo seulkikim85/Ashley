@@ -3,9 +3,13 @@ package com.isp1004.ashley.shopping;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.isp1004.ashley.R;
@@ -33,9 +37,17 @@ public class ProductListActivity extends AppCompatActivity {
         final ListView listView = (ListView) findViewById(R.id.lv_product_list);
 
         new DataLoader(ProductListActivity.this, urlAddress, listView).execute();
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String strProductName = ((TextView)findViewById(R.id.product_id)).getText().toString();
+                Log.d("Seulki", "=============================" + strProductName);
+            }
+        });
+
     }
-
-
 
 
 }
