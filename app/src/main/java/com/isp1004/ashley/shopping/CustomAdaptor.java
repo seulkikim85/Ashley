@@ -61,12 +61,17 @@ public class CustomAdaptor extends BaseAdapter {
         // BIND DATA
         ProductListVO productListVO = this.productListVOs.get(position);
 
-        brandNname.setText(productListVO.getBrandName());
-        productName.setText(productListVO.getProductName());
-        price.setText(String.valueOf(productListVO.getPrice()));
+        String strBrandName = productListVO.getBrandName().substring(0, 18);
+        String strProductName = productListVO.getProductName().substring(0, 18);
+        String strPrice = String.valueOf(productListVO.getPrice());
+
+        brandNname.setText(strBrandName);
+        productName.setText(strProductName);
+        price.setText(strPrice);
 
         if (productListVO.getQty() != 0 ) {
-            qty.setText(String.valueOf(productListVO.getQty()));
+            String strQty = String.valueOf(productListVO.getQty());
+            qty.setText(strQty);
         } else {
             qty.setText("Sold Out");
         }
