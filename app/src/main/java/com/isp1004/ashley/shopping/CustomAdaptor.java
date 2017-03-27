@@ -1,6 +1,7 @@
 package com.isp1004.ashley.shopping;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,6 +98,11 @@ public class CustomAdaptor extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Log.d("Seulki", productListVO.getProductId());
+
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra("product_id", productListVO.getProductId());
+
+                context.startActivity(intent);
             }
         });
 

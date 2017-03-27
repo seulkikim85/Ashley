@@ -22,7 +22,8 @@
             android:name=".myinfo.MyInfoActivity"
             android:label="@string/title_activity_my_info"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".shopping.ProductListActivity"></activity>
+        <activity android:name=".shopping.ProductListActivity" />
+        <activity android:name=".shopping.ProductDetailActivity"></activity>
     </application>
 
 </manifest>
