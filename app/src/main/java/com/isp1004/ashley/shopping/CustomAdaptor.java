@@ -56,7 +56,7 @@ public class CustomAdaptor extends BaseAdapter {
         }
 
         ImageView productImg = (ImageView) convertView.findViewById(R.id.product_img);
-        TextView brandNname = (TextView) convertView.findViewById(R.id.brand_name);
+        TextView brandName = (TextView) convertView.findViewById(R.id.brand_name);
         TextView productName = (TextView) convertView.findViewById(R.id.product_name);
         TextView productId = (TextView) convertView.findViewById(R.id.product_id);
         TextView qty = (TextView) convertView.findViewById(R.id.qty);
@@ -79,7 +79,7 @@ public class CustomAdaptor extends BaseAdapter {
         String strProductId = productVO.getProductId();
         String strPrice = priceDecimalFormat.format(productVO.getPrice());
 
-        brandNname.setText(strBrandName);
+        brandName.setText(strBrandName);
         productName.setText(strProductName);
         productId.setText(strProductId);
         price.setText(strPrice);

@@ -28,23 +28,32 @@ import java.net.HttpURLConnection;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
-    ImageView productImg = (ImageView)findViewById(R.id.pddetail_product_img);
+    ImageView productImg;
 
-
-    TextView pdDetailBrandName = (TextView)findViewById(R.id.pddetail_brand_name);
-    TextView pdDetailProductName = (TextView)findViewById(R.id.pddetail_product_name);
-    TextView pdDetailProductId = (TextView)findViewById(R.id.pddetail_product_id);
-    TextView pdDetailQty = (TextView)findViewById(R.id.pddetail_qty);
-    EditText pdDetailOrderQty = (EditText) findViewById(R.id.pddetail_edt_order_qty);
-    TextView pdDetailPrice = (TextView)findViewById(R.id.pddetail_price);
-    TextView pdDetailTotalPrice = (TextView)findViewById(R.id.pddetail_total_price);
-    TextView pdDetailDescription = (TextView)findViewById(R.id.pddetail_description);
+    TextView pdDetailBrandName;
+    TextView pdDetailProductName;
+    TextView pdDetailProductId;
+    TextView pdDetailQty;
+    EditText pdDetailOrderQty;
+    TextView pdDetailPrice;
+    TextView pdDetailTotalPrice;
+    TextView pdDetailDescription;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_detail);
+
+        productImg = (ImageView)findViewById(R.id.pddetail_product_img);
+        pdDetailBrandName = (TextView)findViewById(R.id.pddetail_brand_name);
+        pdDetailProductName = (TextView)findViewById(R.id.pddetail_product_name);
+        pdDetailProductId = (TextView)findViewById(R.id.pddetail_product_id);
+        pdDetailQty = (TextView)findViewById(R.id.pddetail_qty);
+        pdDetailOrderQty = (EditText) findViewById(R.id.pddetail_edt_order_qty);
+        pdDetailPrice = (TextView)findViewById(R.id.pddetail_price);
+        pdDetailTotalPrice = (TextView)findViewById(R.id.pddetail_total_price);
+        pdDetailDescription = (TextView)findViewById(R.id.pddetail_description);
 
         Intent intent = this.getIntent();
         String strProductId = intent.getStringExtra("product_id");
@@ -113,7 +122,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                     String imgUrl      = jsonObject.getString("img_url");
                     int    price       = jsonObject.getInt("price");
                     int    qty         = jsonObject.getInt("qty");
-                    String isSoldout   = jsonObject.getString("is_soldout");
                     String updateDt    = jsonObject.getString("update_dt");
 
                     pdDetailBrandName.setText(brandName);
