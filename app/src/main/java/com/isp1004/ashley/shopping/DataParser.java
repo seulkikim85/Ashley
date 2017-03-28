@@ -24,7 +24,7 @@ public class DataParser extends AsyncTask<Void, Void, Integer> {
 
     ProgressDialog pd;
 
-    List<ProductListVO> productListVOs = new ArrayList<ProductListVO>();
+    List<ProductVO> productListVOs = new ArrayList<ProductVO>();
 
 
 
@@ -71,7 +71,7 @@ public class DataParser extends AsyncTask<Void, Void, Integer> {
             JSONObject jsonObject;
 
             productListVOs.clear();
-            ProductListVO productListVO;
+            ProductVO productVO;
 
             for (int i=0; i < jsonArray.length(); i++) {
                 jsonObject = jsonArray.getJSONObject(i);
@@ -87,20 +87,20 @@ public class DataParser extends AsyncTask<Void, Void, Integer> {
                 String isSoldout   = jsonObject.getString("is_soldout");
                 String updateDt    = jsonObject.getString("update_dt");
 
-                productListVO = new ProductListVO();
+                productVO = new ProductVO();
 
-                productListVO.setProductId(productId);
-                productListVO.setBrandName(brandName);
-                productListVO.setProductName(productName);
-                productListVO.setCategory(category);
-                productListVO.setDescription(description);
-                productListVO.setImgUrl(imgUrl);
-                productListVO.setPrice(price);
-                productListVO.setQty(qty);
-                productListVO.setIsSoldout(isSoldout);
-                productListVO.setUpdateDt(updateDt);
+                productVO.setProductId(productId);
+                productVO.setBrandName(brandName);
+                productVO.setProductName(productName);
+                productVO.setCategory(category);
+                productVO.setDescription(description);
+                productVO.setImgUrl(imgUrl);
+                productVO.setPrice(price);
+                productVO.setQty(qty);
+                productVO.setIsSoldout(isSoldout);
+                productVO.setUpdateDt(updateDt);
 
-                productListVOs.add(productListVO);
+                productListVOs.add(productVO);
 
             }
 

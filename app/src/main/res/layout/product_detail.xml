@@ -10,13 +10,198 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.isp1004.ashley.shopping.ProductDetailActivity">
 
-    <TextView
-        android:text="TextView"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="37dp"
-        android:id="@+id/pdetail_product_id" />
+        android:id="@+id/whole_layout">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/product_layout">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="158dp"
+            android:id="@+id/pddetail_product_img"
+            android:padding="10dp"
+            android:src="@drawable/fruit"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Brand Name"
+                android:id="@+id/pddetail_brand_name"
+                android:padding="2dp"
+                android:textColor="#000000"
+                android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Product Name"
+                android:id="@+id/pddetail_product_name"
+                android:layout_below="@+id/brand_name"
+                android:padding="2dp"
+                android:textColor="#000000"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Product ID"
+                android:id="@+id/pddetail_product_id"
+                android:layout_below="@+id/product_id"
+                android:padding="2dp"
+                android:textColor="#000000"
+                android:layout_alignParentLeft="true"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/detail_layout">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Qty : "
+                android:id="@+id/pddetail_qty_title"
+                android:padding="2dp"
+                android:textColor="#000000"
+                android:layout_alignParentLeft="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Qty"
+                android:id="@+id/pddetail_qty"
+                android:padding="2dp"
+                android:textColor="@color/colorAccent"
+                android:layout_alignParentLeft="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text=" / "
+                android:id="@+id/pddetail_slash"
+                android:padding="2dp"
+                android:textColor="#000000"
+                android:layout_alignParentLeft="true"/>
+            <EditText
+                android:layout_width="84dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned"
+                android:ems="10"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="51dp"
+                android:layout_marginBottom="32dp"
+                android:id="@+id/pddetail_edt_order_qty"
+                android:background="@drawable/border"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Price : "
+            android:id="@+id/pddetail_price_title"
+            android:padding="2dp"
+            android:textColor="#000000"
+            android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Price"
+                android:id="@+id/pddetail_price"
+                android:padding="2dp"
+                android:textColor="@color/colorAccent"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text=" / "
+                android:id="@+id/pddetail_price_slash"
+                android:padding="2dp"
+                android:textColor="#000000"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Total Price"
+                android:id="@+id/pddetail_total_price"
+                android:padding="2dp"
+                android:textColor="@color/colorAccent"
+                android:layout_alignParentLeft="true"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Description"
+                android:id="@+id/pddetail_description_title"
+                android:padding="2dp"
+                android:textColor="#000000"
+                android:layout_alignParentLeft="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Description"
+                android:id="@+id/pddetail_description"
+                android:padding="2dp"
+                android:textColor="@color/colorAccent"
+                android:layout_alignParentLeft="true"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+    </LinearLayout>
+
+
+
 </RelativeLayout>

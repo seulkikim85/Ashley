@@ -23,11 +23,11 @@ import java.util.List;
 public class CustomAdaptor extends BaseAdapter {
 
     Context context;
-    List<ProductListVO> productListVOs;
+    List<ProductVO> productListVOs;
 
     LayoutInflater inflater;
 
-    public CustomAdaptor(Context context, List<ProductListVO> productListVOs) {
+    public CustomAdaptor(Context context, List<ProductVO> productListVOs) {
         this.context = context;
         this.productListVOs = productListVOs;
 
@@ -63,44 +63,44 @@ public class CustomAdaptor extends BaseAdapter {
         TextView price = (TextView) convertView.findViewById(R.id.price);
 
         // BIND DATA
-        final ProductListVO productListVO = this.productListVOs.get(position);
+        final ProductVO productVO = this.productListVOs.get(position);
 
         DecimalFormat priceDecimalFormat = new DecimalFormat("C$###,###,###.00");
         DecimalFormat qtyDecimalFormat = new DecimalFormat("###,###,###");
 
-        String strBrandName = productListVO.getBrandName();
+        String strBrandName = productVO.getBrandName();
         if (strBrandName.length() > 17) {
             strBrandName = strBrandName.substring(0, 17);
         }
-        String strProductName = productListVO.getProductName();
+        String strProductName = productVO.getProductName();
         if (strProductName.length() > 17) {
             strProductName = strProductName.substring(0, 17);
         }
-        String strProductId = productListVO.getProductId();
-        String strPrice = priceDecimalFormat.format(productListVO.getPrice());
+        String strProductId = productVO.getProductId();
+        String strPrice = priceDecimalFormat.format(productVO.getPrice());
 
         brandNname.setText(strBrandName);
         productName.setText(strProductName);
         productId.setText(strProductId);
         price.setText(strPrice);
 
-        if (productListVO.getQty() != 0 ) {
-            String strQty = qtyDecimalFormat.format(productListVO.getQty());
+        if (productVO.getQty() != 0 ) {
+            String strQty = qtyDecimalFormat.format(productVO.getQty());
             qty.setText(strQty);
         } else {
             qty.setText("Sold Out");
         }
 
         // IMG
-        PicassoClient.viewImage(context, context.getResources().getString(R.string.serverUri) + productListVO.getImgUrl(), productImg);
+        PicassoClient.viewImage(context, context.getResources().getString(R.string.serverUri) + productVO.getImgUrl(), productImg);
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Seulki", productListVO.getProductId());
+                Log.d("Seulki", productVO.getProductId());
 
                 Intent intent = new Intent(context, ProductDetailActivity.class);
-                intent.putExtra("product_id", productListVO.getProductId());
+                intent.putExtra("product_id", productVO.getProductId());
 
                 context.startActivity(intent);
             }
