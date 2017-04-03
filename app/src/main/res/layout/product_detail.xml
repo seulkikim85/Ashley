@@ -122,7 +122,7 @@
                     android:layout_marginEnd="51dp"
                     android:background="@drawable/border"
                     android:ems="10"
-                    android:inputType="numberSigned" />
+                    android:inputType="numberSigned"  />
 
             </LinearLayout>
 
@@ -199,6 +199,13 @@
                     android:textColor="@color/colorAccent" />
 
             </LinearLayout>
+
+            <Button
+                android:text="Shopping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/detail_go_basket"
+                android:onClick="onGoBasket" />
         </LinearLayout>
     </LinearLayout>
 

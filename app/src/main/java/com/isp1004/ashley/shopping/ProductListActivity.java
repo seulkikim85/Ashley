@@ -33,6 +33,7 @@ public class ProductListActivity extends AppCompatActivity {
         setContentView(R.layout.product_list);
 
         final String urlAddress = this.getResources().getString(R.string.serverUri) + "product_list.php";
+        Log.d("Seulki", "url : " + urlAddress);
 
         final ListView listView = (ListView) findViewById(R.id.lv_product_list);
 
@@ -96,7 +97,7 @@ class DataLoader extends AsyncTask<Void,Void,String> {
     }
 
     private String loadData() {
-        HttpURLConnection conn = Connector.connect(urlAddress);
+        HttpURLConnection conn = Connector.connect(urlAddress, null);
         if (conn == null) {
             return null;
         }

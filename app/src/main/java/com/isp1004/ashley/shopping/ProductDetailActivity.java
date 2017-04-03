@@ -5,7 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +18,8 @@ import android.widget.Toast;
 import com.isp1004.ashley.R;
 import com.isp1004.ashley.common.Connector;
 import com.isp1004.ashley.common.PicassoClient;
+import com.isp1004.ashley.myinfo.MyInfoActivity;
+import com.isp1004.ashley.myinfo.MyInfoTab2MyBasket;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,7 +30,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.HttpURLConnection;
+import java.text.DecimalFormat;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
@@ -39,11 +47,17 @@ public class ProductDetailActivity extends AppCompatActivity {
     TextView pdDetailTotalPrice;
     TextView pdDetailDescription;
 
+    int iOrderQty;
+    int iPrice;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_detail);
+
+        this.iOrderQty = 1;
+        this.iPrice = 0;
 
         productImg = (ImageView)findViewById(R.id.pddetail_product_img);
         pdDetailBrandName = (TextView)findViewById(R.id.pddetail_brand_name);
@@ -62,10 +76,77 @@ public class ProductDetailActivity extends AppCompatActivity {
         pdetailProductId.setText(strProductId);
         */
 
+        pdDetailOrderQty.setText(String.valueOf(iOrderQty));
+
+        pdDetailOrderQty.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.d("Seulki", "beforeTextChanged");
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("Seulki", "onTextChanged");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.d("Seulki", "afterTextChanged");
+                DecimalFormat priceDecimalFormat = new DecimalFormat("C$###,###,###.00");
+                int iQty = Integer.parseInt(pdDetailQty.getText().toString());
+                String strOrderQty = pdDetailOrderQty.getText().toString();
+                if (strOrderQty == null || (strOrderQty !=null && strOrderQty.isEmpty())) {
+                    strOrderQty = "0";
+                }
+                iOrderQty = Integer.parseInt(strOrderQty);
+                if (iOrderQty > iQty) {
+                    iOrderQty = iQty;
+                    pdDetailOrderQty.setText(String.valueOf(iOrderQty));
+
+                }
+                Log.d("Seulki", String.valueOf(iOrderQty));
+                pdDetailTotalPrice.setText(priceDecimalFormat.format(iOrderQty * iPrice));
+                Log.d("Seulki", priceDecimalFormat.format(iOrderQty * iPrice));
+            }
+        });
+
         final String urlAddress = this.getResources().getString(R.string.serverUri) + "product_detail.php?product_id=" + strProductId;
 
         new DetailDataLoader(ProductDetailActivity.this, urlAddress).execute();
 
+    }
+
+    public void onGoBasket(View view) {
+
+        String email4basket = "abc@gmail.com";
+        String product_id4basket = pdDetailProductId.getText().toString();
+        String qty4basket = String.valueOf(iOrderQty);
+        String urlAddress4basket = this.getResources().getString(R.string.serverUri) + "add_basket.php";
+        String postData = "email=" + email4basket + "&product_id=" + product_id4basket + "&qty=" + qty4basket;
+        Log.d("Seulki", postData);
+
+        try {
+            HttpURLConnection conn = Connector.connect(urlAddress4basket, postData);
+
+            /*
+            Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+            StringBuffer result = new StringBuffer();
+            for (int c; (c = in.read()) >= 0; ) {
+                result.append((char) c);
+            }
+            Log.d("Seulki", "result : " + result.toString());
+            */
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*
+        Intent intent = new Intent(this, MyInfoActivity.class);
+        intent.putExtra("tab_seq", 1);
+        startActivity(intent);
+        */
     }
 
     class DetailDataLoader extends AsyncTask<Void,Void,String> {
@@ -77,7 +158,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         public DetailDataLoader(Context context, String urlAddress) {
             this.context = context;
             this.urlAddress = urlAddress;
-
         }
 
         @Override
@@ -104,6 +184,8 @@ public class ProductDetailActivity extends AppCompatActivity {
             if (jsonData == null) {
                 Toast.makeText(context, "Unsuccessful, No Data Retrieved", Toast.LENGTH_SHORT).show();
             } else {
+                DecimalFormat priceDecimalFormat = new DecimalFormat("C$###,###,###.00");
+                DecimalFormat qtyDecimalFormat = new DecimalFormat("###,###,###");
                 // Parse
 
                 try {
@@ -121,6 +203,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                     String description = jsonObject.getString("description");
                     String imgUrl      = jsonObject.getString("img_url");
                     int    price       = jsonObject.getInt("price");
+                    iPrice = price; // To refer this value in detail qty onChange
                     int    qty         = jsonObject.getInt("qty");
                     String updateDt    = jsonObject.getString("update_dt");
 
@@ -129,13 +212,15 @@ public class ProductDetailActivity extends AppCompatActivity {
                     pdDetailProductId.setText(productId);
 
                     if (qty > 0) {
-                        pdDetailQty.setText(String.valueOf(qty));
+                        pdDetailQty.setText(qtyDecimalFormat.format(qty));
                     } else {
                         pdDetailQty.setText("Sold Out");
                     }
-                    pdDetailPrice.setText(String.valueOf(price));
+                    pdDetailPrice.setText(priceDecimalFormat.format(price));
+                    pdDetailTotalPrice.setText(priceDecimalFormat.format(iOrderQty * price));
                     pdDetailDescription.setText(description);
 
+                    Log.d("Seulki", "Image URL : " + context.getResources().getString(R.string.serverUri) + imgUrl);
                     PicassoClient.viewImage(context, context.getResources().getString(R.string.serverUri) + imgUrl, productImg);
 
                 } catch (JSONException je) {
@@ -146,7 +231,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
 
         private String loadData() {
-            HttpURLConnection conn = Connector.connect(urlAddress);
+            HttpURLConnection conn = Connector.connect(urlAddress, null);
             if (conn == null) {
                 return null;
             }
