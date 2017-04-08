@@ -118,13 +118,15 @@ public class MyInfoActivity extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             //return PlaceholderFragment.newInstance(position + 1);
             switch (position) {
+                /*
                 case 0:
                     MyInfoTab1Profile tab1 = new MyInfoTab1Profile();
                     return tab1;
-                case 1:
+                */
+                case 0:
                     MyInfoTab2MyBasket tab2 = new MyInfoTab2MyBasket();
                     return tab2;
-                case 2:
+                case 1:
                     MyInfoTab3Orders tab3 = new MyInfoTab3Orders();
                     return tab3;
                 default:
@@ -133,18 +135,20 @@ public class MyInfoActivity extends AppCompatActivity {
         }
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Profile";
-                case 1:
                     return "My Basket";
+                case 1:
+                    return "Orders";
+                /*
                 case 2:
                     return "Orders";
+                */
             }
             return null;
         }

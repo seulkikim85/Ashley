@@ -3,6 +3,7 @@ package com.isp1004.ashley.shopping;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.isp1004.ashley.R;
+import com.isp1004.ashley.common.BasketHelper;
 import com.isp1004.ashley.common.Connector;
 import com.isp1004.ashley.common.PicassoClient;
 import com.isp1004.ashley.myinfo.MyInfoActivity;
@@ -49,6 +51,8 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     int iOrderQty;
     int iPrice;
+
+    SQLiteDatabase sqLiteDatabase;
 
 
     @Override
@@ -95,7 +99,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 Log.d("Seulki", "afterTextChanged");
                 DecimalFormat priceDecimalFormat = new DecimalFormat("C$###,###,###.00");
                 int iQty = Integer.parseInt(pdDetailQty.getText().toString());
-                String strOrderQty = pdDetailOrderQty.getText().toString();
+                String strOrderQty = pdDetailOrderQty.getText().toString().replaceAll(",", "");
                 if (strOrderQty == null || (strOrderQty !=null && strOrderQty.isEmpty())) {
                     strOrderQty = "0";
                 }
@@ -105,9 +109,8 @@ public class ProductDetailActivity extends AppCompatActivity {
                     pdDetailOrderQty.setText(String.valueOf(iOrderQty));
 
                 }
-                Log.d("Seulki", String.valueOf(iOrderQty));
                 pdDetailTotalPrice.setText(priceDecimalFormat.format(iOrderQty * iPrice));
-                Log.d("Seulki", priceDecimalFormat.format(iOrderQty * iPrice));
+                Log.d("Seulki", "Total Price : " + priceDecimalFormat.format(iOrderQty * iPrice));
             }
         });
 
@@ -117,36 +120,136 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     }
 
-    public void onGoBasket(View view) {
+    public void onAddBasket(View view) {
 
         String email4basket = "abc@gmail.com";
+        String brand_name4basket = pdDetailBrandName.getText().toString();
         String product_id4basket = pdDetailProductId.getText().toString();
+        String product_name4basket = pdDetailProductName.getText().toString();
         String qty4basket = String.valueOf(iOrderQty);
+        Log.d("Seulki", "origin price : "  + pdDetailPrice.getText().toString());
+        String price4basket = pdDetailPrice.getText().toString().replaceAll(",", "").replaceAll("\\$", "").replaceAll("C", "");
+        Log.d("Seulki", "send qty : "  + qty4basket);
+        Log.d("Seulki", "send price : " + price4basket);
         String urlAddress4basket = this.getResources().getString(R.string.serverUri) + "add_basket.php";
-        String postData = "email=" + email4basket + "&product_id=" + product_id4basket + "&qty=" + qty4basket;
-        Log.d("Seulki", postData);
 
-        try {
-            HttpURLConnection conn = Connector.connect(urlAddress4basket, postData);
 
-            /*
-            Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+        new addBasketTask(ProductDetailActivity.this, urlAddress4basket, email4basket, brand_name4basket, product_id4basket, product_name4basket, qty4basket, price4basket).execute();
 
-            StringBuffer result = new StringBuffer();
-            for (int c; (c = in.read()) >= 0; ) {
-                result.append((char) c);
-            }
-            Log.d("Seulki", "result : " + result.toString());
-            */
-        } catch (Exception e) {
-            e.printStackTrace();
+
+
+
+    }
+
+    class addBasketTask extends AsyncTask<Void,Void,String> {
+        Context context;
+        String urlAddress;
+        String email;
+        String brandName;
+        String productId;
+        String productName;
+        String qty;
+        String price;
+
+        ProgressDialog pd;
+
+        public addBasketTask(Context context, String urlAddress, String email, String brandName, String productId, String productName, String qty, String price) {
+            this.context = context;
+            this.urlAddress = urlAddress;
+            this.email = email;
+            this.brandName = brandName;
+            this.productId = productId;
+            this.productName = productName;
+            this.qty = qty;
+            this.price = price;
         }
 
-        /*
-        Intent intent = new Intent(this, MyInfoActivity.class);
-        intent.putExtra("tab_seq", 1);
-        startActivity(intent);
-        */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            pd = new ProgressDialog(context);
+            pd.setTitle("Saves");
+            pd.setMessage("Saving... Please wait.");
+            pd.show();
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            BasketHelper basketHelper = new BasketHelper(getBaseContext());
+            sqLiteDatabase = basketHelper.getWritableDatabase();
+
+            basketHelper.addBasket(this.email, this.brandName, this.productId, this.productName, this.qty, this.price, sqLiteDatabase);
+            /*
+            String urlAddress4basket = context.getResources().getString(R.string.serverUri) + "add_basket.php";
+            String postData = "email=" + this.email + "&product_id=" + this.productId + "&qty=" + this.qty;
+            Log.d("Seulki", postData);
+            StringBuffer result = new StringBuffer();
+
+            try {
+                HttpURLConnection conn = Connector.connect(urlAddress4basket, postData);
+
+                Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+
+                for (int c; (c = in.read()) >= 0; ) {
+                    result.append((char) c);
+                }
+                Log.d("Seulki", "result : " + result.toString());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            */
+            // return result.toString();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            pd.dismiss();
+
+            /*
+
+            if (jsonData == null) {
+                Toast.makeText(context, "Unsuccessful, No Data Saved", Toast.LENGTH_SHORT).show();
+            } else {
+                DecimalFormat priceDecimalFormat = new DecimalFormat("C$###,###,###.00");
+                DecimalFormat qtyDecimalFormat = new DecimalFormat("###,###,###");
+                // Parse
+
+                try {
+                    JSONArray jsonArray = new JSONArray(jsonData);
+                    JSONObject jsonObject;
+
+                    jsonObject = jsonArray.getJSONObject(0);
+
+                    String result   = jsonObject.getString("result");
+
+                    if (result != null && result.isEmpty() != true) {
+                        if (result.intern() == "success") {
+                            Toast.makeText(context, "Add to basket successfully", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Failed to add data", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                } catch (JSONException je) {
+                    je.printStackTrace();
+                }
+
+            }
+            */
+
+            Intent intent = new Intent(context, MyInfoActivity.class);
+            intent.putExtra("tab_seq", 0);
+            startActivity(intent);
+        }
+
+
     }
 
     class DetailDataLoader extends AsyncTask<Void,Void,String> {

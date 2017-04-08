@@ -8,10 +8,36 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.isp1004.ashley.myinfo.MyInfoActivity">
 
-    <TextView
-        android:id="@+id/section_label"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My Basket"/>
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/section_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Basket"
+            android:textSize="18sp" />
+
+        <ListView
+            android:layout_width="352dp"
+            android:layout_height="310dp"
+            android:id="@+id/lv_basket_list" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:id="@+id/basket_total"
+            android:textAlignment="textEnd" />
+
+        <Button
+            android:text="Order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/order" />
+
+
+    </LinearLayout>
 </RelativeLayout>

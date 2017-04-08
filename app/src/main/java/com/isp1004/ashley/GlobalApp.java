@@ -9,6 +9,9 @@ import android.app.Application;
 public class GlobalApp extends Application {
 
     //private String serverUri = "http://10.0.9.239";
+
+    private String email;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -19,4 +22,12 @@ public class GlobalApp extends Application {
         return serverUri;
     }
     */
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

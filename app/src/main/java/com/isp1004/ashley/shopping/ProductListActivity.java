@@ -24,9 +24,6 @@ import java.net.HttpURLConnection;
 
 public class ProductListActivity extends AppCompatActivity {
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,77 +47,79 @@ public class ProductListActivity extends AppCompatActivity {
 
     }
 
+    class DataLoader extends AsyncTask<Void,Void,String> {
+        Context context;
+        String urlAddress;
+        ListView listView;
 
-}
+        ProgressDialog pd;
 
-class DataLoader extends AsyncTask<Void,Void,String> {
-    Context context;
-    String urlAddress;
-    ListView listView;
-
-    ProgressDialog pd;
-
-    public DataLoader(Context context, String urlAddress, ListView listView) {
-        this.context = context;
-        this.urlAddress = urlAddress;
-        this.listView = listView;
-    }
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-
-        pd = new ProgressDialog(context);
-        pd.setTitle("Retrives");
-        pd.setMessage("Retriving... Please wait.");
-        pd.show();
-
-    }
-
-    @Override
-    protected String doInBackground(Void... params) {
-        return loadData();
-    }
-
-    @Override
-    protected void onPostExecute(String jsonData) {
-        super.onPostExecute(jsonData);
-        pd.dismiss();
-
-        if (jsonData == null) {
-            Toast.makeText(context, "Unsuccessful, No Data Retrieved", Toast.LENGTH_SHORT).show();
-        } else {
-            // Parse
-            DataParser dataParser = new DataParser(context, jsonData, listView);
-            dataParser.execute();
-        }
-    }
-
-    private String loadData() {
-        HttpURLConnection conn = Connector.connect(urlAddress, null);
-        if (conn == null) {
-            return null;
+        public DataLoader(Context context, String urlAddress, ListView listView) {
+            this.context = context;
+            this.urlAddress = urlAddress;
+            this.listView = listView;
         }
 
-        try {
-            InputStream inputStream = new BufferedInputStream(conn.getInputStream());
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
 
-            String line = new String();
-            StringBuffer jsonData = new StringBuffer();
+            pd = new ProgressDialog(context);
+            pd.setTitle("Retrives");
+            pd.setMessage("Retriving... Please wait.");
+            pd.show();
 
-            while ((line = bufferedReader.readLine()) != null) {
-                jsonData.append(line + "\n");
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            return loadData();
+        }
+
+        @Override
+        protected void onPostExecute(String jsonData) {
+            super.onPostExecute(jsonData);
+            pd.dismiss();
+
+            if (jsonData == null) {
+                Toast.makeText(context, "Unsuccessful, No Data Retrieved", Toast.LENGTH_SHORT).show();
+            } else {
+                // Parse
+                DataParser dataParser = new DataParser(context, jsonData, listView);
+                dataParser.execute();
+            }
+        }
+
+        private String loadData() {
+            HttpURLConnection conn = Connector.connect(urlAddress, null);
+            if (conn == null) {
+                return null;
             }
 
-            bufferedReader.close();
-            inputStream.close();
+            try {
+                InputStream inputStream = new BufferedInputStream(conn.getInputStream());
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
-            return jsonData.toString();
+                String line = new String();
+                StringBuffer jsonData = new StringBuffer();
 
-        } catch (IOException ie) {
-            ie.printStackTrace();
+                while ((line = bufferedReader.readLine()) != null) {
+                    jsonData.append(line + "\n");
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+
+                return jsonData.toString();
+
+            } catch (IOException ie) {
+                ie.printStackTrace();
+            }
+            return null;
         }
-        return null;
     }
+
+
 }
+
+
