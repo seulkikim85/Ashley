@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -39,6 +41,8 @@ public class MyInfoTab2MyBasket extends Fragment {
 
         final ListView listView = (ListView) rootView.findViewById(R.id.lv_basket_list);
         final TextView totalView = (TextView) rootView.findViewById(R.id.basket_total);
+        final Button orderButton = (Button) rootView.findViewById(R.id.basket_btn_order);
+
 
         /*
         MyInfoActivity myInfoActivity = (MyInfoActivity)getActivity();
@@ -47,7 +51,7 @@ public class MyInfoTab2MyBasket extends Fragment {
         */
         this.email = "abc@gmail.com";
 
-        new BasketLoader(rootView.getContext(), listView, totalView, this.email).execute();
+        new BasketLoader(rootView.getContext(), listView, totalView, orderButton, this.email).execute();
 
 
         return rootView;
@@ -58,6 +62,7 @@ public class MyInfoTab2MyBasket extends Fragment {
         Context context;
         ListView listView;
         TextView totalView;
+        Button orderButton;
         BasketAdaptor basketAdaptor;
         String email;
         List<BasketVO> basketVOs = new ArrayList<BasketVO>();
@@ -66,14 +71,27 @@ public class MyInfoTab2MyBasket extends Fragment {
 
         SQLiteDatabase sqLiteDatabase;
 
-        public BasketLoader(Context context, ListView listView, TextView totalView, String email) {
+        public BasketLoader(Context context, ListView listView, TextView totalView, Button orderButton, String email) {
             this.context = context;
             this.listView = listView;
             this.totalView = totalView;
+            this.orderButton = orderButton;
             this.email = email;
 
             BasketAdaptor basketAdaptor = new BasketAdaptor(context, basketVOs);
             listView.setAdapter(basketAdaptor);
+
+            orderButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Iterator<BasketVO> iterator = basketVOs.iterator();
+                    while (iterator.hasNext()) {
+                        BasketVO basketVO = iterator.next();
+                        int basketId = basketVO.getBasketId();
+                    }
+
+                }
+            });
         }
 
         @Override
