@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -10,29 +11,102 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.isp1004.ashley.MainActivity">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_name_message"
+            android:gravity="right"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+            <Button
+                android:text="My Info"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/my_info"
+                android:onClick="onGoMyInfo"
+            />
+
+            <Button
+                android:text="Log In"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_user"
+                android:onClick="onLogin"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageButton
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:srcCompat="@drawable/face_cosmetics"
+                android:id="@+id/ib_face"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:onClick="onBuyFaceThings" />
+
+            <ImageButton
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:srcCompat="@drawable/cheek_cosmetics"
+                android:id="@+id/ib_cheek"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:onClick="onBuyCheeksThings" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageButton
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:srcCompat="@drawable/eyes_cosmetics"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:id="@+id/ib_eyes"
+                android:onClick="onBuyEyesThings" />
+
+            <ImageButton
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:srcCompat="@drawable/lips_cosmetics"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:id="@+id/ib_lips"
+                android:onClick="onBuyLipsThings" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        app:srcCompat="@drawable/ashley_sale"
+        android:id="@+id/imageView"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentStart="true" />
 
     <Button
-        android:text="My Info"
-        android:layout_width="wrap_content"
+        android:text="About Company"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="47dp"
-        android:id="@+id/my_info"
-        android:onClick="onButton (MainActivity)" />
+        android:id="@+id/company_info"
+        android:onClick="onGoCompanyInfo"
+        android:layout_below="@+id/imageView" />
 
-    <Button
-        android:text="Shopping"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/my_info"
-        android:layout_alignStart="@+id/my_info"
-        android:layout_marginTop="37dp"
-        android:id="@+id/shopping"
-        android:onClick="onGoShopping" />
+
 </RelativeLayout>

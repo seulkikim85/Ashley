@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import com.isp1004.ashley.GlobalApp;
 import com.isp1004.ashley.R;
 
 public class MyInfoActivity extends AppCompatActivity {
@@ -34,6 +35,7 @@ public class MyInfoActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    GlobalApp globalApp;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -44,6 +46,8 @@ public class MyInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_info);
+
+        globalApp = (GlobalApp)getApplication();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

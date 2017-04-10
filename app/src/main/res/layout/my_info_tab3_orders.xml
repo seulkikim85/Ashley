@@ -8,10 +8,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.isp1004.ashley.myinfo.MyInfoActivity">
 
-    <TextView
-        android:id="@+id/section_label"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Orders"/>
+        android:orientation="vertical">
 
+    <ListView
+        android:layout_width="341dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/lv_order_list" />
+    </LinearLayout>
 </RelativeLayout>

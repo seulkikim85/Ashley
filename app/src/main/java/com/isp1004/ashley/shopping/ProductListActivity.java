@@ -31,10 +31,11 @@ public class ProductListActivity extends AppCompatActivity {
 
         final String urlAddress = this.getResources().getString(R.string.serverUri) + "product_list.php";
         Log.d("Seulki", "url : " + urlAddress);
+        final String strCategory = getIntent().getStringExtra("category");
 
         final ListView listView = (ListView) findViewById(R.id.lv_product_list);
 
-        new DataLoader(ProductListActivity.this, urlAddress, listView).execute();
+        new DataLoader(ProductListActivity.this, urlAddress, strCategory, listView).execute();
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -51,12 +52,14 @@ public class ProductListActivity extends AppCompatActivity {
         Context context;
         String urlAddress;
         ListView listView;
+        String strCategory;
 
         ProgressDialog pd;
 
-        public DataLoader(Context context, String urlAddress, ListView listView) {
+        public DataLoader(Context context, String urlAddress, String strCategory, ListView listView) {
             this.context = context;
             this.urlAddress = urlAddress;
+            this.strCategory = strCategory;
             this.listView = listView;
         }
 
@@ -91,7 +94,8 @@ public class ProductListActivity extends AppCompatActivity {
         }
 
         private String loadData() {
-            HttpURLConnection conn = Connector.connect(urlAddress, null);
+            String postData = "category=" + this.strCategory;
+            HttpURLConnection conn = Connector.connect(urlAddress, postData);
             if (conn == null) {
                 return null;
             }

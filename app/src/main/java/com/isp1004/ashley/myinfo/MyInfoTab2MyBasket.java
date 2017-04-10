@@ -44,12 +44,9 @@ public class MyInfoTab2MyBasket extends Fragment {
         final Button orderButton = (Button) rootView.findViewById(R.id.basket_btn_order);
 
 
-        /*
         MyInfoActivity myInfoActivity = (MyInfoActivity)getActivity();
-        GlobalApp globalApp = (GlobalApp)myInfoActivity.getApplication();
-        this.email = globalApp.getEmail();
-        */
-        this.email = "abc@gmail.com";
+        this.email = myInfoActivity.globalApp.getEmail();
+        //this.email = "abc@gmail.com";
 
         new BasketLoader(rootView.getContext(), listView, totalView, orderButton, this.email).execute();
 

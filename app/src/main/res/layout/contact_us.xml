@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contact_us"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.isp1004.ashley.company.ContactUsActivity">
+
+    <TextView
+        android:text="Customer Service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/contact_title"
+        android:fontFamily="monospace"
+        android:textSize="18sp" />
+
+    <Button
+        android:text="Tel. (647) 600 - 6666"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contact_title"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="24dp"
+        android:id="@+id/btn_compnay_tel"
+        android:layout_alignParentEnd="true"
+        android:onClick="onTel" />
+
+    <TextView
+        android:text="E-MAIL : service@ashley.ca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_compnay_tel"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="49dp"
+        android:id="@+id/txt_company_email"
+        android:layout_alignParentEnd="true"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center" />
+
+</RelativeLayout>
