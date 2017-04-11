@@ -13,4 +13,65 @@
     tools:context="com.isp1004.ashley.myinfo.PaymentConfirmActivity"
     tools:showIn="@layout/payment_confirm">
 
+
+
+    <TextView
+        android:text="CardCompany"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:id="@+id/showCardCompany" />
+
+    <TextView
+    android:text="CardNumber"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/editCardCompany"
+    android:layout_marginTop="37dp"
+    android:id="@+id/showCardNumber" />
+
+    <TextView
+        android:text="CardCSV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/showCardNumber"
+        android:layout_marginTop="37dp"
+        android:id="@+id/showCardCsv" />
+
+    <TextView
+        android:text="CardExpiration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/showCardCsv"
+        android:layout_marginTop="37dp"
+        android:id="@+id/showCardExpiration" />
+
+    <TextView
+        android:text="CardName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/showCardExpiration"
+        android:layout_marginTop="37dp"
+        android:id="@+id/showCardName" />
+
+    <TextView
+        android:text="TotalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/showCardName"
+        android:layout_marginTop="37dp"
+        android:id="@+id/showTotalPrice" />
+
+    <Button
+        android:text="Confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnConfirm"
+        android:onClick="buttonConfirm"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/showTotalPrice"
+         />
+
+
+
 </RelativeLayout>
