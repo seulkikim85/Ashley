@@ -133,7 +133,7 @@ public class MyInfoTab2MyBasket extends Fragment {
             BasketHelper basketHelper = new BasketHelper(context);
             sqLiteDatabase = basketHelper.getReadableDatabase();
 
-            Cursor cursor = basketHelper.queryBasket(this.email, "N", sqLiteDatabase);
+            Cursor cursor = basketHelper.queryBasket(this.email, "N", "N", sqLiteDatabase);
 
             if (cursor.moveToFirst()) {
                 do {

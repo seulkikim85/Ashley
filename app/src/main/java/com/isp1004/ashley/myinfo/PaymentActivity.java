@@ -106,6 +106,7 @@ public class PaymentActivity extends AppCompatActivity {
         private String loadData() {
 
             CardInfoHelper cardInfoHelper = new CardInfoHelper(context);
+            SQLiteDatabase sqLiteDatabase = cardInfoHelper.getWritableDatabase();
             sqLiteDatabase = cardInfoHelper.getReadableDatabase();
 
             Cursor cursor = cardInfoHelper.queryCardInfo(email, sqLiteDatabase);

@@ -78,16 +78,17 @@ public class BasketHelper extends SQLiteOpenHelper {
     }
 
     // Query Basket
-    public Cursor queryBasket(String email, String isOrdered, SQLiteDatabase db) {
+    public Cursor queryBasket(String email, String isOrdered, String isPaid, SQLiteDatabase db) {
         Log.d("Seulki", "queryBasket");
         Cursor cursor;
         String[] projections = { BasketContact.DBList.BASKET_ID, BasketContact.DBList.BRAND_NAME, BasketContact.DBList.PRODUCT_ID, BasketContact.DBList.PRODUCT_NAME, BasketContact.DBList.QTY, BasketContact.DBList.PRICE, BasketContact.DBList.IS_ORDERED, BasketContact.DBList.IS_PAID};
         String selection = BasketContact.DBList.EMAIL + "=? and ";
-        selection = selection + BasketContact.DBList.IS_ORDERED + "=? ";
-        String[] selection_args = { email, isOrdered };
+        selection = selection + BasketContact.DBList.IS_ORDERED + "=? and ";
+        selection = selection + BasketContact.DBList.IS_PAID + "=?";
+        String[] selection_args = { email, isOrdered, isPaid };
 
         Log.d("Seulki", "selection : " + selection);
-        Log.d("Seulki", "selection_args" + selection_args[0] + ", " + selection_args[1]);
+        Log.d("Seulki", "selection_args" + selection_args[0] + ", " + selection_args[1] + ", " + selection_args[2]);
 
         cursor = db.query(BasketContact.DBList.TABLE_NAME, projections, selection, selection_args, null, null, null);
 

@@ -33,8 +33,7 @@ public class CardInfoHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         Log.d("Seulki", "Card info Database Created / Opened");
     }
-
-
+/*
     public CardInfoHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
         super(context, name, factory, version, errorHandler);
     }
@@ -42,7 +41,7 @@ public class CardInfoHelper extends SQLiteOpenHelper {
     public CardInfoHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
-
+*/
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -82,8 +81,6 @@ public class CardInfoHelper extends SQLiteOpenHelper {
         contentValues.put(CardInfoContract.DBList.CARD_CSV, cardCsv);
         contentValues.put(CardInfoContract.DBList.CARD_EXPIRATION, cardExpiration);
         contentValues.put(CardInfoContract.DBList.CARD_NAME, cardName);
-
-
 
         String selection = CardInfoContract.DBList.EMAIL + " = ?";
         String[] selection_args = { email };
