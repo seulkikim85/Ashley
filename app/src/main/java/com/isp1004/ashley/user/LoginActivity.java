@@ -340,10 +340,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             String lastName = "";
 
             try {
+                Log.d("Seulki", mUrlAddress);
+
                 // Simulate network access.
                 HttpURLConnection conn = Connector.connect(mUrlAddress, postData);
 
-                Log.d("Seulki", "Try to connect Login");
                 if (conn == null) {
                     return false;
                 }

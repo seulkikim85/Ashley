@@ -3,7 +3,11 @@
     package="com.isp1004.ashley">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -34,7 +38,15 @@
         <activity
             android:name=".user.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".company.ContactUsActivity"></activity>
+        <activity android:name=".company.ContactUsActivity" />
+        <activity
+            android:name=".myinfo.PaymentActivity"
+            android:label="@string/title_activity_payment"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".myinfo.PaymentConfirmActivity"
+            android:label="@string/title_activity_payment_confirm"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

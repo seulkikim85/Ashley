@@ -2,6 +2,7 @@ package com.isp1004.ashley.myinfo;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -14,12 +15,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.isp1004.ashley.GlobalApp;
 import com.isp1004.ashley.R;
 import com.isp1004.ashley.common.BasketHelper;
 import com.isp1004.ashley.common.BasketVO;
-
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -68,7 +66,7 @@ public class MyInfoTab2MyBasket extends Fragment {
 
         SQLiteDatabase sqLiteDatabase;
 
-        public BasketLoader(Context context, ListView listView, TextView totalView, Button orderButton, String email) {
+        public BasketLoader(final Context context, ListView listView, TextView totalView, Button orderButton, String email) {
             this.context = context;
             this.listView = listView;
             this.totalView = totalView;
@@ -81,11 +79,25 @@ public class MyInfoTab2MyBasket extends Fragment {
             orderButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Iterator<BasketVO> iterator = basketVOs.iterator();
+                    Iterator<BasketVO> iterator = BasketLoader.this.basketVOs.iterator();
+
+                    BasketHelper basketHelper = new BasketHelper(BasketLoader.this.context);
+                    BasketLoader.this.sqLiteDatabase = basketHelper.getWritableDatabase();
+
+
+
                     while (iterator.hasNext()) {
                         BasketVO basketVO = iterator.next();
                         int basketId = basketVO.getBasketId();
+
+                        basketHelper.updateBasket(String.valueOf(basketId), "Y", "N", sqLiteDatabase);
+
                     }
+
+                    Intent intent = new Intent(context, PaymentActivity.class);
+                    startActivity(intent);
+
+
 
                 }
             });
