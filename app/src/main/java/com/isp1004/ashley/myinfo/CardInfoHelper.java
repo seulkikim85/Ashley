@@ -32,6 +32,7 @@ public class CardInfoHelper extends SQLiteOpenHelper {
     public CardInfoHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         Log.d("Seulki", "Card info Database Created / Opened");
+        Log.d("Seulki", CREATE_QUERY);
     }
 /*
     public CardInfoHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
@@ -44,7 +45,7 @@ public class CardInfoHelper extends SQLiteOpenHelper {
 */
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        Log.d("Seulki", CREATE_QUERY);
         db.execSQL(CREATE_QUERY);
         Log.d("Seulki", "Card info Table Created");
 
@@ -66,13 +67,11 @@ public class CardInfoHelper extends SQLiteOpenHelper {
         contentValues.put(CardInfoContract.DBList.CARD_EXPIRATION, cardExpiration);
         contentValues.put(CardInfoContract.DBList.CARD_NAME, cardName);
 
-
-
         db.insert(CardInfoContract.DBList.TABLE_NAME, null, contentValues);
         Log.d("Seulki", "add Card info");
     }
 
-    // Update Basket
+    // Update Card Info
     public void updateCardInfo(String email, String cardCompany, String cardNumber, String cardCsv, String cardExpiration, String cardName, SQLiteDatabase db) {
         ContentValues contentValues = new ContentValues();
 
@@ -90,7 +89,7 @@ public class CardInfoHelper extends SQLiteOpenHelper {
 
     }
 
-    // Query Basket
+    // Query Card Info
     public Cursor queryCardInfo(String email, SQLiteDatabase db) {
         Log.d("Seulki", "queryCardInfo");
 

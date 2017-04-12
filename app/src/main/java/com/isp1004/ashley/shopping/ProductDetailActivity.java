@@ -52,9 +52,6 @@ public class ProductDetailActivity extends AppCompatActivity {
     int iOrderQty;
     int iPrice;
 
-    SQLiteDatabase sqLiteDatabase;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,6 +149,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         String price;
 
         ProgressDialog pd;
+
+        SQLiteDatabase sqLiteDatabase;
 
         public addBasketTask(Context context, String urlAddress, String email, String brandName, String productId, String productName, String qty, String price) {
             this.context = context;

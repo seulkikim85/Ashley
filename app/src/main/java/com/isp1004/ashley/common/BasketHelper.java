@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.isp1004.ashley.myinfo.CardInfoContract;
+
 /**
  * Created by h06 on 2017-04-07.
  */
@@ -16,7 +18,7 @@ public class BasketHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Ashley";
     private static final int DATABASE_VERSION = 1;
 
-    private static final String CREATE_QUERY =
+    private static final String CREATE_BASKET =
             "CREATE TABLE " +
                     BasketContact.DBList.TABLE_NAME   + " (" +
                     BasketContact.DBList.BASKET_ID    + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -36,7 +38,7 @@ public class BasketHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_QUERY);
+        db.execSQL(CREATE_BASKET);
         Log.d("Seulki", "Table Created");
     }
 

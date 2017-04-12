@@ -30,6 +30,7 @@ public class PaymentConfirmActivity extends AppCompatActivity {
 
     private String email;
     private GlobalApp globalApp;
+    private String urlAddress;
 
     SQLiteDatabase sqLiteDatabase;
 
@@ -46,6 +47,7 @@ public class PaymentConfirmActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        urlAddress = this.getResources().getString(R.string.serverUri) + "add_order.php";
 
         confirmCardCompany = (TextView) findViewById(R.id.showCardCompany);
         confirmCardNumber = (TextView) findViewById(R.id.showCardNumber);
@@ -57,8 +59,30 @@ public class PaymentConfirmActivity extends AppCompatActivity {
         globalApp = (GlobalApp)getApplication();
         this.email = globalApp.getEmail();
 
-        new PaymentConfirmActivity.confirmOrder(PaymentConfirmActivity.this, confirmCardCompany,confirmCardNumber,confirmCardCsv,confirmCardExpiration,confirmCardName,confirmTotal,this.email).execute();
+        Intent intent = getIntent();
+        confirmCardCompany.setText(intent.getStringExtra("cardCompany"));
+        confirmCardNumber.setText(intent.getStringExtra("cardNumber"));
+        confirmCardCsv.setText(intent.getStringExtra("cardCsv"));
+        confirmCardExpiration.setText(intent.getStringExtra("cardExpiration"));
+        confirmCardName.setText(intent.getStringExtra("cardName"));
 
+        int totalAmount = 0;
+
+        BasketHelper basketHelper = new BasketHelper(PaymentConfirmActivity.this);
+        SQLiteDatabase sqLiteDatabase1 = basketHelper.getReadableDatabase();
+        Cursor cursor = basketHelper.queryBasket(email, "Y", "N", sqLiteDatabase1);
+        if (cursor.moveToFirst()) {
+            do {
+                int qty = cursor.getInt(4);
+                int price = cursor.getInt(5) * qty;
+                totalAmount = totalAmount + (qty * price);
+            } while(cursor.moveToNext());
+        }
+        confirmTotal.setText(totalAmount);
+
+        /*
+        new PaymentConfirmActivity.confirmOrder(PaymentConfirmActivity.this, confirmCardCompany,confirmCardNumber,confirmCardCsv,confirmCardExpiration,confirmCardName,confirmTotal,this.email).execute();
+        */
 
 
         /*
@@ -76,7 +100,7 @@ public class PaymentConfirmActivity extends AppCompatActivity {
         });*/
     }
 
-
+/*
     class confirmOrder extends AsyncTask<Void,Void,String>{
 
 
@@ -105,11 +129,6 @@ public class PaymentConfirmActivity extends AppCompatActivity {
             this.confirmCardExpiration = confirmCardExpiration;
             this.confirmCardName = confirmCardName;
             this.confirmTotal = confirmTotal;
-
-
-
-
-
         }
 
         @Override
@@ -122,18 +141,11 @@ public class PaymentConfirmActivity extends AppCompatActivity {
             pd.setTitle("Retrives");
             pd.setMessage("Retriving... Please wait.");
             pd.show();
-
-
         }
 
         @Override
         protected String doInBackground(Void... params) {
-
-
-
-
             return loadData();
-
         }
 
         @Override
@@ -145,8 +157,6 @@ public class PaymentConfirmActivity extends AppCompatActivity {
         private String loadData() {
 
             CardInfoHelper cardInfoHelper = new CardInfoHelper(context);
-
-            SQLiteDatabase sqLiteDatabase = cardInfoHelper.getWritableDatabase();
             sqLiteDatabase = cardInfoHelper.getReadableDatabase();
 
             Cursor cursor = cardInfoHelper.queryCardInfo(email, sqLiteDatabase);
@@ -168,73 +178,36 @@ public class PaymentConfirmActivity extends AppCompatActivity {
                 confirmCardName.setText(cardName);
             }
 
-            BasketHelper basketHelper = new BasketHelper(PaymentConfirmActivity.this);
-            SQLiteDatabase sqLiteDatabase1 = basketHelper.getWritableDatabase();
-            sqLiteDatabase1 = basketHelper.getReadableDatabase();
-
-            Cursor cursor1 = basketHelper.queryBasket(email, "Y", "N", sqLiteDatabase1);
-
-            Iterator<BasketVO> iterator = PaymentConfirmActivity.basketVOs.iterator();
-
-
-
-            while (iterator.hasNext()) {
-                BasketVO basketVO = iterator.next();
-                int basketId = basketVO.getBasketId();
-                int qty = basketVO.getQty();
-                int price = basketVO.getPrice();
-
-                confirmTotal.setText(qty*price);
-
-            }
-
-
+            int totalAmount = 0;
 
 
             return null;
         }
     }
-
-
-
-
-
+*/
     public void buttonConfirm(View view) {
 
-
         BasketHelper basketHelper = new BasketHelper(PaymentConfirmActivity.this);
-
         sqLiteDatabase = basketHelper.getReadableDatabase();
-
         Cursor cursor = basketHelper.queryBasket(email, "Y", "N", sqLiteDatabase);
-
         SQLiteDatabase sqLiteWritableDatabase = basketHelper.getWritableDatabase();
 
-        int productId;
-        int qty;
+        if (cursor.moveToFirst()) {
+            do {
+                int basketId = cursor.getInt(0);
+                String productId = cursor.getString(2);
+                int qty = cursor.getInt(4);
 
-        Iterator<BasketVO> iterator = PaymentConfirmActivity.BasketLoader.this.basketVOs.iterator();
+                String postData = "email=" + this.email + "&product_id=" + productId + "&qty=" + String.valueOf(qty);
+                HttpURLConnection conn = Connector.connect(urlAddress, postData);
 
-        while (iterator.hasNext()) {
-
-            if (cursor.moveToFirst()) {
-
-                // basket update
-                basketHelper.updateBasket(email, "Y", "Y", sqLiteWritableDatabase);
-            }
-
-
-
-            String postData = "email=" + this.email + "&product_id=" + productId + "&qty=" + qty;
-            HttpURLConnection conn = Connector.connect(urlAddress4basket, postData);
+                basketHelper.updateBasket(String.valueOf(basketId), "Y", "Y", sqLiteWritableDatabase);
+            } while(cursor.moveToNext());
         }
 
-
-        //go to main
-        Intent intent = new Intent(this, MainActivity.class);
+        //go to OderList in MyInfo
+        Intent intent = new Intent(PaymentConfirmActivity.this, MyInfoActivity.class);
+        intent.putExtra("tab_seq", 1);
         startActivity(intent);
-
-
-
     }
 }

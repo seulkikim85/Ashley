@@ -32,8 +32,6 @@ public class PaymentActivity extends AppCompatActivity {
     private String email;
     private GlobalApp globalApp;
 
-    SQLiteDatabase sqLiteDatabase;
-
     EditText editCardCompany;
     EditText editCardNumber;
     EditText editCsv;
@@ -54,10 +52,12 @@ public class PaymentActivity extends AppCompatActivity {
         globalApp = (GlobalApp)getApplication();
         this.email = globalApp.getEmail();
 
+        /*
         new CardInfoLoader(PaymentActivity.this, editCardCompany, editCardNumber, editCsv, editExpiration, editName, this.email).execute();
+        */
     }
 
-
+/*
     class CardInfoLoader extends AsyncTask<Void,Void,String> {
 
         Context context;
@@ -69,6 +69,7 @@ public class PaymentActivity extends AppCompatActivity {
         String email;
 
         ProgressDialog pd;
+        SQLiteDatabase sqLiteDatabase;
 
         public CardInfoLoader(Context context, EditText editCardCompany, EditText editCardNumber, EditText editCsv, EditText editExpiration, EditText editName, String email) {
             this.context = context;
@@ -106,9 +107,7 @@ public class PaymentActivity extends AppCompatActivity {
         private String loadData() {
 
             CardInfoHelper cardInfoHelper = new CardInfoHelper(context);
-            SQLiteDatabase sqLiteDatabase = cardInfoHelper.getWritableDatabase();
             sqLiteDatabase = cardInfoHelper.getReadableDatabase();
-
             Cursor cursor = cardInfoHelper.queryCardInfo(email, sqLiteDatabase);
 
             if (cursor.moveToFirst()) {
@@ -128,11 +127,12 @@ public class PaymentActivity extends AppCompatActivity {
                 editName.setText(cardName);
             }
 
+
             return null;
         }
     }
 
-
+*/
 
 
     public void buttonContinue(View view) {
@@ -160,10 +160,11 @@ public class PaymentActivity extends AppCompatActivity {
                 textView.setText("Could you check your Card Name");
             }
 
+            /*
             // 2. SQL exist
             CardInfoHelper cardInfoHelper = new CardInfoHelper(PaymentActivity.this);
 
-            sqLiteDatabase = cardInfoHelper.getReadableDatabase();
+            SQLiteDatabase sqLiteDatabase = cardInfoHelper.getReadableDatabase();
             Cursor cursor = cardInfoHelper.queryCardInfo(email, sqLiteDatabase);
 
             SQLiteDatabase sqLiteWritableDatabase = cardInfoHelper.getWritableDatabase();
@@ -176,8 +177,13 @@ public class PaymentActivity extends AppCompatActivity {
                 // 3-2  if not exist, insert
                 cardInfoHelper.addCard(email, cardCompany, cardNumber, cardCsv, cardExpiration, cardName,sqLiteWritableDatabase);
             }
-
-           Intent intent = new Intent(this, PaymentConfirmActivity.class);
+            */
+            Intent intent = new Intent(this, PaymentConfirmActivity.class);
+            intent.putExtra("cardCompany", cardCompany);
+            intent.putExtra("cardNumber", cardNumber);
+            intent.putExtra("cardCsv", cardCsv);
+            intent.putExtra("cardExpiration", cardExpiration);
+            intent.putExtra("cardName", cardName);
             startActivity(intent);
         }
     }
