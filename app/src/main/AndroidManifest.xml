@@ -40,13 +40,15 @@
             android:label="@string/title_activity_login" />
         <activity android:name=".company.ContactUsActivity" />
         <activity
-            android:name=".myinfo.PaymentActivity"
+            android:name=".myinfo._PaymentActivity"
             android:label="@string/title_activity_payment"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".myinfo.PaymentConfirmActivity"
+            android:name=".myinfo._PaymentConfirmActivity"
             android:label="@string/title_activity_payment_confirm"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".myinfo.PaymentActivity" />
+        <activity android:name=".myinfo.PaymentConfirmActivity"></activity>
     </application>
 
 </manifest>

@@ -371,8 +371,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 for (int i=0; i < jsonArray.length(); i++) {
                     jsonObject = jsonArray.getJSONObject(i);
                     strResult = jsonObject.getString("result");
-                    firstName = jsonObject.getString("first_name");
-                    lastName = jsonObject.getString("last_name");
+                    if (strResult != null && strResult.isEmpty() != true) {
+                        firstName = jsonObject.getString("first_name");
+                        lastName = jsonObject.getString("last_name");
+                    }
                 }
                 Log.d("Seulki", "get Data from jsonObject");
 

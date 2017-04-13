@@ -3,6 +3,7 @@ package com.isp1004.ashley.myinfo;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -48,7 +49,7 @@ public class MyInfoTab3Orders extends Fragment {
 
         final ListView orderlist = (ListView)rootView.findViewById(R.id.lv_order_list);
 
-        new OrderLoader(rootView.getContext(), orderlist, this.email, urlAddress).execute();
+        AsyncTask<Void,Void,String> task = new OrderLoader(rootView.getContext(), orderlist, this.email, urlAddress).execute();
 
         return rootView;
     }

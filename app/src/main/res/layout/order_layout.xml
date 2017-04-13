@@ -9,7 +9,8 @@
         <TextView
             android:layout_width="190dp"
             android:layout_height="wrap_content"
-            android:id="@+id/order_date"/>
+            android:id="@+id/order_date"
+            android:fontFamily="monospace" />
         <TextView
             android:layout_width="190dp"
             android:layout_height="wrap_content"

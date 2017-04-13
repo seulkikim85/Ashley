@@ -201,10 +201,11 @@
             </LinearLayout>
 
             <Button
-                android:text="Shopping"
+                android:text="Add Basket"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/detail_go_basket"
+                android:layout_gravity="right"
                 android:onClick="onAddBasket" />
         </LinearLayout>
     </LinearLayout>
